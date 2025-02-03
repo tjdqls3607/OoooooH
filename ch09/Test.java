@@ -1,5 +1,7 @@
 package ch09;
 
+import ch05.MyClass;
+
 public class Test {
     public static void main(String[] args) {
         // 필드에 익명 객체
@@ -25,5 +27,14 @@ public class Test {
                 System.out.println("익명 remote control 사용2");
             }
         });
+
+        // static inner class
+//        MyClass mc = new MyClass();
+//        MyClass mc2 = new MyClass2();   // 오류 발생
+        MyClass3 mc3 = new MyClass3();
     }
+
+    class MyClass2{}
+    static class MyClass3{}
 }
+// class MyClass()
