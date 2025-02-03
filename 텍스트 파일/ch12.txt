@@ -1,0 +1,23 @@
+StringBuilder 클래스
+잦은 문자열 변경 작업을 해야한다면  String 보다는 StringBuilder가 좋음
+StringBuilder는 내부 버퍼에 문자열을 저장해두고 그 안에서 추가, 수정, 삭제 작업을 하도록 설계
+
+StringBuilder 와 StringBuffer의 차이
+스레드 세이프
+
+포장 객체
+기본 타입 (byte, char, short, int, long, float, double, boolean)의 값을 갖는 객체
+포장하고 있는 기본 타입의 값을 변경할 수 없고, 단지 객체로 생성하는 목적
+
+박싱과 언박싱
+박싱 : 기본 타입 값을 포장 객체로 만드는 과정. 포장 클래스 변수에 기본 타입 값이 대입 시 발생
+언박싱 : 포장 객체에서 기본 타입 값을 얻어내는 과정. 기본 타입 변수에 포장 객체가 대입 시 발생
+EX)
+Integer obj = 100; // 박싱
+int value = obj; // 언박싱
+
+int value = obj + 50;
+
+문자열을 기본 타입 값으로 변환
+포장 클래스는 문자열을 기본 타입 값으로 변환할 때도 사용
+대부분 포장 클래스에는 parse + 기본타입 명으로 되어있는 정적 메소드 있음
