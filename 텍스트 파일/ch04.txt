@@ -1,0 +1,47 @@
+반복횟수가 정해진 반복문 = for
+
+반복횟수가 정해지지 않은 반복문 = while
+
+do-while 문
+블록 내부를 먼저 실행 시키고 실행 결과에 따라서 반복 실행을 계속할지 결정
+작성시 while() 뒤에 반드시 세미콜론을 붙여야 하는데 주의
+do-while 문이 처음 실행될 때
+1. 실행문을 우선 실행한다 -> 실행문이 모두 실행되면
+2. 조건식을 평가
+
+평가 결과가 true이면 1 -> 2 와 같이 반복실행을 하고, 조건식의 결과가 false이면 do-while 문을 종료한다.
+
+break
+반복문인 for, while, do-while문을 실행 중지하거나 조건문인 switch문을 종료할때 사용
+break문은 대게 if문과 같이 사용되어 조건식에 따라 for문과 while문을 종료
+
+continue
+반복문인 for, while, do-while 문에서만 사용
+블록 내부에서 continue문이 실행되면 for문의 증감식 또는 while문, do-while문의 조건식으로 바로 이동
+break문과 달리 반복문을 종료하지 않고 계속 반복을 수행
+대게 if문과 같이 사용되며,  특정 조건을 만족하는 경우에 continue문을 실행해서 그 이후의 문장을 실행하지 않고 다음 반복으로 넘어감
+
+
+if를 연속적으로 쓰는거보다 if와 else if를 썼을때 메모리 사용 변화
+
+printf = 프린트포멧
+
+
+
+&&를 ||로 바꿨을 때 결과
+//		for (int i = 0, j = 2; i < 10 || j> 0; i++, j--) {
+//			System.out.print(i);
+//			System.out.print(j);
+//			System.out.println();
+//		}
+
+02
+11
+20
+3-1
+4-2
+5-3
+6-4
+7-5
+8-6
+9-7
