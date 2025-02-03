@@ -1,7 +1,5 @@
 package ch09;
 
-import ch05.MyClass;
-
 public class Test {
     public static void main(String[] args) {
         // 필드에 익명 객체
