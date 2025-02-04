@@ -17,5 +17,19 @@ public class Test {
         Product<Car, String> product2 = new Product<>();
         product2.setKind(new Car());
         product2.setModel("제네시스");
+
+        //인터페이스와 generic
+//        HomeAgency homeAgency = new HomeAgency();
+//        Home home = homeAgency.rent();
+//
+//        CarAgency carAgency = new CarAgency();
+//        Car car = carAgency.rent();
+
+        // 인터펭스를 쓰는 더 나은 코드
+        Rentable<Home> homeAgency = new HomeAgency();
+        Home home = homeAgency.rent();
+
+        Rentable<Car> carAgency = new CarAgency();
+        Car car = carAgency.rent();
     }
 }
