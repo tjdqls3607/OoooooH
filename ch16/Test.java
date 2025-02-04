@@ -43,6 +43,7 @@ public class Test {
             // 인터페이스에 있는 메소드의 파라미터와 그것을 구현하는 코드
             action( (x, y) -> { System.out.println(x + y); }   );
             action( (x, y) -> { System.out.println(x - y); }   );
+            // 람다는 Functional Interface 에만 사용
         }
 
     }
