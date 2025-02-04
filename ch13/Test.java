@@ -31,5 +31,23 @@ public class Test {
 
         Rentable<Car> carAgency = new CarAgency();
         Car car = carAgency.rent();
+
+        // 메소드와 generic
+        // main() 과 별개의 static method 생성
+        // Test 클래스에는 generic 이 없다.
+        Box<Integer> box3 = boxing(100);
+        System.out.println(box3.content);
+
+        Box<String> box4 = boxing("Hello");
+        System.out.println(box4.content);
     }
+
+    // Parameter 로 T 타입의 객체를 받는다.
+    // Box<T> 객체를 return
+    public static <T> Box<T> boxing(T t){
+        Box<T> box = new Box<>();
+        box.content = t;
+        return box;
+    }
+
 }
