@@ -40,6 +40,11 @@ public class Test {
 
         Box<String> box4 = boxing("Hello");
         System.out.println(box4.content);
+
+        // 제한된 generic T
+        System.out.println(compare(10, 20)); //정수
+        System.out.println(compare(10.5, 20.4)); //실수
+//      System.out.println(compare("Hello", "World"));
     }
 
     // Parameter 로 T 타입의 객체를 받는다.
@@ -50,4 +55,13 @@ public class Test {
         return box;
     }
 
+    // T는 모든 타입 객체가 아닌 Number 를 포함한 Number 의 하위 클래스로 제한
+    public static <T extends Number> boolean compare(T t1, T t2){
+        return t1.doubleValue() == t2.doubleValue();
+    }
+
+    //제한된 타입은 super 를 사용 (상위 클래스) 할 수 없다.
+//  public static <T super Number> boolean compare(T t1, T t2){
+//      return t1.doubleValue() == t2.doubleValue();
+//  }
 }
