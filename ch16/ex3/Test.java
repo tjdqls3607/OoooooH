@@ -17,5 +17,12 @@ public class Test {
 
         // 곱셈
         person.action((x, y) -> x *y);
+
+        //나눗셈 ( 메소드 사용 )
+        person.action((x, y) -> div(x, y));
+    }
+
+    public static int div (int x, int y) {
+        return x / y;
     }
 }
