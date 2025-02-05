@@ -6,14 +6,14 @@ public class Test {
         // 그 사람에게 할 일을 부여
         // 일의 종류머더 구현 클래스 및 객체를 만들지 않고
         // 일 각각을 람다식으로 표현전달
-        person.action(() -> {
+        person.action((String 홍길동, String 코딩) -> {
             System.out.println("출근!");
             System.out.println("코딩!");
             System.out.println("칼퇴!");
         });
 
         // 실행문 한 개일 경우 {} 생략 가능
-        person.action(() -> System.out.println("칼퇴!"));
+        person.action((String 홍길동, String 코딩) -> System.out.println("칼퇴!"));
 
     }
 }
