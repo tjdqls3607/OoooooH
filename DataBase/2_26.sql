@@ -74,3 +74,32 @@ select * from customer,orders where customer.custid = orders.custid; -- 위 cart
 
 select customer.custid, customer.name, orders.saleprice, orders.orderdate
  from customer,orders where customer.custid = orders.custid; -- 원하는 테이블의 컬럼을 선택
+ 
+ -- 두 테이블에 중복되는 칼럼은 table 명을 생략X(custid)
+ -- 한 테이블에만 있는 컬럼은 table 명을 생략 가능
+ -- 테이블명을 모두 명시하는 것이 가독성이 좋다.
+ select customer.custid, customer.name, orders.saleprice, orders.orderdate 
+ from customer,orders where customer.custid = orders.custid; 
+
+-- join경우, 테이블 alias를 사용 권장 (단, alias 를 사용헐 경우 컬럼명에도 alias 를 함께 사용)
+ select c.custid, c.name, o.saleprice, o.orderdate 
+ from customer c,orders o where c.custid = o.custid; 
+ 
+ -- order by 추가
+select c.custid, c.name, o.saleprice, o.orderdate 
+ from customer c,orders o where c.custid = o.custid
+ order by c.custid;
+ 
+-- sum(고객 이름 <= 사실상 고객별...처리)
+select c.name, sum(o.saleprice)
+ from customer c, orders o where c.custid = o.custid
+ group by c.name
+ order by c.name;
+ 
+-- 고객별 sum 을 구하는데 동명이인이 있으면?
+-- 고객의 구분자(식별자)인 Primary Key로 group by 필요
+ select c.name, sum(o.saleprice)
+ from customer c, orders o where c.custid = o.custid
+ group by c.custid
+ order by c.name;
+ 
