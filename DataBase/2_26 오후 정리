@@ -1,0 +1,85 @@
+# 25/02/26 강의 내용 정리 (오후)
+## JOIN의 개념과 종류
+### 카티션 프로덕트(Cartesian Product)
+두 개 이상의 테이블을 FROM절에 콤마(,)로 연결하면 카티션 프로덕트 연산 수행
+예시: SELECT * FROM Customer, orders;
+결과 행 수 = 첫 번째 테이블 행 수 × 두 번째 테이블 행 수
+카티션 프로덕트는 모든 경우의 수를 조합 (Customer 5건, orders 10건 → 결과 50건)
+대부분의 경우 의미 있는 데이터를 얻기 위해 JOIN 조건 필요
+### 이너 조인(INNER JOIN)
+두 테이블에서 조인 조건을 만족하는 행들만 결과에 포함
+조인 조건은 WHERE절에 지정
+예시: SELECT * FROM Customer, orders WHERE Customer.customer_id = orders.customer_id;
+조인 결과에서 원하는 컬럼만 선택 가능
+예시: SELECT Customer.name, orders.sale_price FROM Customer, orders WHERE Customer.customer_id = orders.customer_id;
+테이블 별칭 사용으로 코드 간결화 가능
+예시: SELECT c.name, o.sale_price FROM Customer c, orders o WHERE c.customer_id = o.customer_id;
+### 표준 ANSI SQL JOIN 문법
+명시적 JOIN 키워드 사용
+기본 구문: SELECT * FROM table1 [INNER] JOIN table2 ON table1.column = table2.column;
+예시: SELECT * FROM Customer c JOIN orders o ON c.customer_id = o.customer_id;
+조인 조건을 WHERE 절이 아닌 ON 절에 작성
+가독성이 좋고 조인 종류를 명확히 표현 가능
+세 개 이상 테이블 조인 시 JOIN을 계속 연결
+예시: SELECT * FROM orders o JOIN Customer c ON o.customer_id = c.customer_id JOIN Book b ON o.book_id = b.book_id;
+### 다중 테이블 조인
+세 개 이상의 테이블 조인 시 모든 테이블 간 관계 정의 필요
+예시(3개 테이블):
+sql
+  SELECT c.name, b.bookname, o.sale_price 
+  FROM Customer c, orders o, Book b 
+  WHERE c.customer_id = o.customer_id AND o.book_id = b.book_id;
+  
+ANSI 문법:
+sql
+  SELECT c.name, b.bookname, o.sale_price
+  FROM orders o
+  JOIN Customer c ON o.customer_id = c.customer_id
+  JOIN Book b ON o.book_id = b.book_id;
+  
+조인 순서는 성능에 영향 줄 수 있음
+### 아우터 조인(OUTER JOIN)
+조인 조건을 만족하지 않는 행도 결과에 포함
+LEFT OUTER JOIN: 왼쪽 테이블의 모든 행 포함
+예시: 구매 내역이 없는 고객도 포함하여 조회
+sql
+  SELECT c.name, o.sale_price
+  FROM Customer c LEFT OUTER JOIN orders o
+  ON c.customer_id = o.customer_id;
+  
+일치하는 행이 없는 경우 NULL 값으로 채워짐
+주로 "모든 ~에 대해" 형태의 요구사항에 사용
+실무 활용 예: 휴가 사용 내역 조회 시 휴가를 사용하지 않은 직원도 포함
+### 셀프 조인(SELF JOIN)
+같은 테이블을 두 번 사용하여 조인
+테이블 내에서 자기 참조 관계가 있을 때 사용
+예시: 직원 테이블에서 직원과 관리자 관계 조회
+sql
+  SELECT staff.first_name, manager.first_name AS manager_name
+  FROM employees staff, employees manager
+  WHERE staff.manager_id = manager.employee_id;
+  
+테이블 별칭 사용 필수(같은 테이블이므로 구분 필요)
+ANSI 문법:
+sql
+  SELECT staff.first_name, manager.first_name AS manager_name
+  FROM employees staff
+  JOIN employees manager ON staff.manager_id = manager.employee_id;
+  
+## 실무 활용 팁
+### JOIN 사용 시 주의사항
+조인 테이블이 많아질수록 성능 이슈 발생 가능
+실무에서는 보통 5개 이상의 테이블을 조인하는 경우 많음
+테이블당 데이터 건수가 많은 경우(수백만건 이상) 조인 성능 고려 필요
+카티션 프로덕트를 이해하고 필요한 조인 조건 누락 없도록 주의
+테이블 별칭 사용 시 일관성 유지 및 직관적인 별칭 사용 권장
+### 테이블 별칭 사용
+테이블명이 길거나 여러 테이블 조인 시 별칭 사용 권장
+중복 컬럼명이 있는 경우 테이블명 또는 별칭으로 구분 필수
+한 테이블에만 있는 컬럼은 테이블명 생략 가능하나 가독성을 위해 지정 권장
+별칭 사용 예: FROM Customer AS c 또는 FROM Customer c
+### JOIN vs 서브쿼리
+같은 결과를 얻을 수 있는 여러 방법 존재
+JOIN은 여러 테이블의 데이터를 한 번에 조회할 때 유용
+서브쿼리는 복잡한 조건이나 집계 결과를 활용할 때 유용
+성능과 가독성 고려하여 적절한 방법 선택
