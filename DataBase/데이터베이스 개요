@@ -3,3 +3,81 @@
 SELECT : 질의 결과 추출되는 속성 리스트를 열거한다.
 FROM : 질의의 어느 테이블이 사용되는지 열거한다.
 WHERE : 질의의 조건을 작성한다
+
+# 25/02/26 강의 내용 정리 (오전)
+## 집계 함수와 GROUP BY
+### 집계 함수(Aggregate Functions)
+집계 함수: 여러 행의 데이터를 한번에 계산하는 함수
+SUM(): 합계를 구하는 함수 - SUM(sale_price)
+AVG(): 평균값을 구하는 함수 - AVG(sale_price)
+COUNT(): 행의 개수를 세는 함수 - COUNT(*) 또는 COUNT(column)
+MAX(): 최대값을 구하는 함수 - MAX(sale_price)
+MIN(): 최소값을 구하는 함수 - MIN(sale_price)
+예시: SELECT SUM(sale_price) FROM orders; - 전체 판매액의 합계 산출
+예시: SELECT AVG(sale_price) FROM orders; - 평균 판매가 산출
+예시: SELECT COUNT(*) FROM orders; - 전체 주문 건수 확인
+예시: SELECT MAX(sale_price) FROM orders; - 가장 비싼 판매가 확인
+예시: SELECT MIN(sale_price) FROM orders; - 가장 낮은 판매가 확인
+### 집계 함수 사용 시 주의사항
+COUNT(*)는 전체 행 개수를 세지만, COUNT(column)은 NULL이 아닌 행만 계산
+예시: World 스키마의 country 테이블에서 indepYear(독립연도) NULL 값이 있음
+SELECT COUNT(*) FROM world.country; - 239개 행 존재
+SELECT COUNT(indepYear) FROM world.country; - 192개(NULL 제외)
+### 집계 함수와 WHERE 조건절
+집계 함수 사용 시 WHERE 절로 조건 지정 가능
+예시: SELECT SUM(sale_price) FROM orders WHERE sale_price >= 8000;
+예시: SELECT MAX(sale_price) FROM orders WHERE customer_id = 1;
+### 여러 집계 함수 동시 사용
+한 쿼리에서 여러 집계 함수를 함께 사용 가능
+예시:
+  SELECT SUM(sale_price) AS s, AVG(sale_price) AS a, MIN(sale_price) AS min, MAX(sale_price) AS max FROM orders;
+별칭(AS)을 사용하여 결과 컬럼명 지정
+## GROUP BY 절
+### GROUP BY 기본 개념
+GROUP BY: 특정 컬럼 값이 같은 행들을 그룹화하여 집계하는 기능
+구문: SELECT 컬럼, 집계함수(컬럼) FROM 테이블 GROUP BY 그룹화할_컬럼;
+그룹별로 집계함수(SUM, COUNT, AVG, MAX, MIN 등) 적용 가능
+### GROUP BY 활용 예시
+고객별 주문 수량과 총 구매액 구하기:
+  SELECT customer_id, COUNT(*) AS '도서 수량', SUM(sale_price) AS '총액' FROM orders GROUP BY customer_id;
+도서별 판매량과 총액 구하기:
+  SELECT book_id, COUNT(*) AS '도서 수량', SUM(sale_price) AS '총액' FROM orders GROUP BY book_id;
+날짜별 판매량과 총액 구하기:
+  SELECT order_date, COUNT(*) AS '도서 수량', SUM(sale_price) AS '총액' FROM orders GROUP BY order_date;
+### 다중 GROUP BY
+여러 컬럼을 기준으로 그룹화 가능
+계층적 구조로 적용됨 (바깥쪽에서 안쪽 순서로)
+예시(날짜별, 고객별 총 판매액):
+  SELECT order_date, customer_id, SUM(sale_price) AS '총액' FROM orders GROUP BY order_date, customer_id;
+행정구역 예시: 시도별, 시군구별, 읍면동별과 같은 계층적 그룹화 가능
+### HAVING 절
+HAVING: GROUP BY로 생성된 그룹에 조건을 적용할 때 사용
+WHERE는 그룹화 전 개별 행에 조건 적용, HAVING은 그룹화 후 그룹에 조건 적용
+예시(도서 구매량이 2권 초과인 고객):
+  SELECT customer_id, COUNT(*) AS '도서 수량' FROM orders GROUP BY customer_id HAVING COUNT(*) > 1;
+예시(고객번호가 1인 고객 제외):
+  SELECT customer_id, COUNT(*) AS '도서 수량' FROM Orders GROUP BY customer_id HAVING customer_id > 1;
+### SQL 실행 순서
+FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+WHERE: 개별 행 필터링(그룹화 전)
+GROUP BY: 지정된 컬럼으로 행 그룹화
+HAVING: 그룹 필터링(그룹화 후)
+SELECT: 결과 컬럼 선택
+ORDER BY: 결과 정렬
+### GROUP BY 사용 시 주의사항
+SELECT 절에는 GROUP BY에 명시된 컬럼과 집계 함수만 사용 가능
+집계 함수를 사용하지 않은 컬럼은 반드시 GROUP BY 절에 포함되어야 함
+잘못된 예:
+  SELECT customer_id, book_id, COUNT(*) FROM orders GROUP BY customer_id;
+  (book_id는 GROUP BY에 없어서 오류 발생)
+## World 스키마 실습
+### World 스키마 구조
+DESC 명령으로 테이블 구조 확인: DESC 테이블명 (예: DESC country)
+Country 테이블: 국가 정보(코드, 이름, 대륙, 인구, GNP 등)
+City 테이블: 도시 정보(ID, 국가코드, 이름, 인구 등)
+CountryLanguage: 국가별 언어 정보(국가코드, 언어, 공식여부, 사용비율)
+### 실습 예제
+유럽 대륙 국가들의 총 인구수:
+  SELECT SUM(Population) FROM country WHERE Continent = 'Europe';
+대륙별 국가 수, 최대/최소 GNP, 평균 기대수명:
+  SELECT Continent, COUNT(*) AS cnt, MAX(Population), MIN(GNP), MAX(GNP), AVG(LifeExpectancy) FROM country GROUP BY Continent;
