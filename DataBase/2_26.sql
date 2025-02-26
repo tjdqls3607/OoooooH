@@ -48,3 +48,6 @@ select custid, count(*) as '도서수량'from orders where saleprice >= 8000 gro
 select custid, count(*) as '도서수량'from orders where saleprice >= 8000 group by custid having '도서수량' >= 2; -- 집계 결과 문자열 alias 오류는 없지만 결과가 이상함 해당 문자열과 비교
 
 select custid, count(*) as book_count from orders where saleprice >= 8000 group by custid having book_count >= 2; -- 집계 결과 문자열 아닌 alias 오류없고 결과도 정상적이다
+
+-- group by select 컬럼 주의
+select bookid, count(*) as '도서수량' from orders where saleprice >= 8000 group by custid having count(*) >= 2; -- group by 항목이 아닌 항목을 select에 사용
