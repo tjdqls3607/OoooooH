@@ -177,3 +177,22 @@ select *
  where staff.manager_id = manager.employee_id
  and manager.first_name = 'Den'
  and manager.last_name = 'Raphaely';
+ 
+-- 1. 도시명 Seoul 속한 국가의 이름, 인구수, GNP 를 조회하시오.
+select co.name, co.Population, co.GNP   
+ from country co, city ci 
+ where co.Code = ci.CountryCode
+ and ci.name = 'Seoul';
+ 
+ select co.name, co.Population, co.GNP   
+ from country co join city ci on co.Code = ci.CountryCode 
+ and ci.name = 'Seoul';
+
+-- 2. 공식언어의 사용율이 50%(50.0) 가 넘는 국가의 이름, 공식언어, 사용율을 조회하시오.
+select co.name, cl.Language, cl.Percentage
+ from country co, countrylanguage cl
+ where co.code = cl.CountryCode
+ and cl.IsOfficial = 'T'
+ and cl.Percentage > 50.0;
+ 
+ -- workshop : world, hr 두 스키마에서 join 문제를 각각 1인 1문제 출제 조내 공유
