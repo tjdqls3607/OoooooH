@@ -65,3 +65,12 @@ select Continent, count(*) cnt, max(Population), min(GNP), max(GNP), avg(LifeExp
 from country
 group by Continent;
 
+-- madang DB - JOIN-
+select * from customer; -- 5건
+select * from orders; -- 10건
+select * from customer,orders; -- 5 X 10 건
+
+select * from customer,orders where customer.custid = orders.custid; -- 위 cartisian product 로 부터 10건 추출
+
+select customer.custid, customer.name, orders.saleprice, orders.orderdate
+ from customer,orders where customer.custid = orders.custid; -- 원하는 테이블의 컬럼을 선택
