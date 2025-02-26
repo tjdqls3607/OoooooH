@@ -157,5 +157,23 @@ select c.name, c.address, b.bookname, o.orderdate -- * 로 카티션 프로덕�
 			 inner join book b on o.bookid = b.bookid
  where c.name like '김%' -- 고객이름이 김 으로 시작(select 항목 포함)
   and o.saleprice < 10000; -- select 항목 포함 X
+  
+  
+-- outer join
+-- 모든 고객 대상으로 고객이름, 총 구매금액을 구하라 (단 구매하지 않은 고객도 포함)
+select c.name, o.saleprice
+ from customer c left outer join orders o
+ on c.custid = o.custid;
  
- 
+ -- 모든 도서 대상으로 도서이름, 판매금액을 구하라 (단, 판매하지 않은 도서도 포함)
+ select b.bookid, b.bookname, o.saleprice
+  from book b left join orders o on b.bookid = o.bookid;
+  
+-- self join
+-- hr db employee 테이블
+-- first_name = 'Den' and last_name = 'Raphaely' 인 사원이 관리하는 부하 사원의 이름과 직급을 구해라
+select *
+ from employees staff, employees manager
+ where staff.manager_id = manager.employee_id
+ and manager.first_name = 'Den'
+ and manager.last_name = 'Raphaely';
