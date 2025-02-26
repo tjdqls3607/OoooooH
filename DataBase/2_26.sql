@@ -132,3 +132,30 @@ from customer c,book b, orders o
   and b.bookid = o.bookid
   and c.name like '김%' -- 고객이름이 김 으로 시작(select 항목 포함)
   and o.saleprice < 10000; -- select 항목 포함 X
+
+
+-- 표준 SQL JOIN (ANSI SQL JOIN)
+select c.custid, c.name, o.saleprice, o.orderdate
+ from customer c, orders o
+ where c.custid = o.custid;
+ 
+ --  쿼리를 ansi sql join 으로 변경
+select c.custid, c.name, o.saleprice, o.orderdate
+ from customer c inner join oders o on c.custid = o.ocustid;
+ 
+ select * -- c.name, c.address, b.bookname, o.orderdate -- * 로 카티션 프로덕트를 만들고 난 후 원하는 컬럼만 선택
+from customer c,book b, orders o 
+ where c.custid = o.custid
+  and b.bookid = o.bookid
+  and c.name like '김%' -- 고객이름이 김 으로 시작(select 항목 포함)
+  and o.saleprice < 10000; -- select 항목 포함 X
+
+  -- 위 쿼리를 ansi sql join 으로 변경
+  -- inner 를 생략하면 기본 join 이 inner join
+select c.name, c.address, b.bookname, o.orderdate -- * 로 카티션 프로덕트를 만들고 난 후 원하는 컬럼만 선택
+ from orders o inner join customer c on o.custid = c.custid
+			 inner join book b on o.bookid = b.bookid
+ where c.name like '김%' -- 고객이름이 김 으로 시작(select 항목 포함)
+  and o.saleprice < 10000; -- select 항목 포함 X
+ 
+ 
