@@ -103,3 +103,32 @@ select c.name, sum(o.saleprice)
  group by c.custid
  order by c.name;
  
+-- 실무 SQL 과 지금 SQL ???
+-- 1. 하나의 SQL 에서 처리하는 테이블 수가 다르다. (보통 5개 정도)
+-- 2. 테이블 당 데이터 건수가 어~~~~~~~~엄청 많다(1억건 이상.)
+-- 3. 작성하는 SQL 이 훠~~~알씬 복잡하다.
+
+
+-- 3개의 테이블
+select * from customer; -- 5건
+select * from book; -- 10건
+select * from orders; -- 10건
+select * from customer,book, orders; -- 5 X 10 X 10 건
+
+select * from customer,book, orders 
+ where customer.custid = orders.custid
+  and book.bookid = orders.bookid;
+    
+-- 테이블 alias. 원하는 컬럼만
+select c.name, c.address, b.bookname, o.orderdate
+from customer c,book b, orders o 
+ where c.custid = o.custid
+  and book.bookid = orders.bookid; -- orders 기준 customer, book의 key 와 join 조건
+  
+-- 각 테이블 별 조건 추가
+select * -- c.name, c.address, b.bookname, o.orderdate -- * 로 카티션 프로덕트를 만들고 난 후 원하는 컬럼만 선택
+from customer c,book b, orders o 
+ where c.custid = o.custid
+  and b.bookid = o.bookid
+  and c.name like '김%' -- 고객이름이 김 으로 시작(select 항목 포함)
+  and o.saleprice < 10000; -- select 항목 포함 X
