@@ -20,6 +20,10 @@ select bookname from book where price = (select price from book);
 select bookname from book where price in (select price from book); -- subquery 의 결과가 다중행일 결루 in
 select bookname from book where price in (7000, 8000, 9000);
 
+-- Error Code: 1241. Operand should contain 1 column(s)	0.000 sec
+select bookname from book where price in (select bookid, price from book); 
+select bookname from book where price in (select price from book); -- price 만 in 비교
+select bookname from book where (bookid,price) in (select bookid, price from book); -- bookid, price 함께 비교
 
 
 
