@@ -135,4 +135,17 @@ create view VOrders as
  select custid, name from vorders; -- 일부
  -- 은행, 통신 회사 인사팀, 영업팀 (전체 데이터가 필요)... 콜센터 (제한적인 데이터만 필요)
  -- 중요 데이터가 포함된 테이블 중 상담이 필요한 일부 컬럼만 콜센터가 사용하도록 한다
- -- 위 경우, 테이블을 콜센터에 직접 노출 X
+ -- 위 경우, 테이블을 콜센터에 직접 노출 X => 일부 컬럼으로 view 만들어서 제공
+ 
+ -- 인덱스 
+ -- 빠른검색 목적 
+ -- 1. 별도의 자료구조를 생성 (정렬) 
+ -- 2. 새로운 데이터가 추가되거나, 기존데이터가 변경 또는 삭제되면 재구성
+ -- 3. 검색에서는 이득을 보지만, 등록, 수정, 삭제에서는 손해를 본다.
+ -- 4. PK,FK 등은 자동으로 인덱스가 생성된다.
+ -- 아래 query 실행계획 비교
+select * from book where bookid = 3;
+select * from book where bookname = 'abc';
+
+select * from orders where orderid =3;
+select * from orders where saleprice =3;
