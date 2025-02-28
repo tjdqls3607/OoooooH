@@ -143,9 +143,28 @@ create view VOrders as
  -- 2. 새로운 데이터가 추가되거나, 기존데이터가 변경 또는 삭제되면 재구성
  -- 3. 검색에서는 이득을 보지만, 등록, 수정, 삭제에서는 손해를 본다.
  -- 4. PK,FK 등은 자동으로 인덱스가 생성된다.
+ -- 5. 거꾸로 특정 컬럼에 인덱스를 추가해도 검색이 개선되지 않고 오히려 더 느려진다. (예 : 성별 'M', 'F')
+ --  분포도가 20% 이상이 되면 별로...
  -- 아래 query 실행계획 비교
 select * from book where bookid = 3;
 select * from book where bookname = 'abc';
 
 select * from orders where orderid =3;
 select * from orders where saleprice =3;
+
+-- test_db 에 jdbc_big 테이블 생성
+select count(*) from jdbc_big;
+select * from jdbc_big;
+-- 100만건 데이터를 이용해서 더 큰 테이블 생성
+create table jdbc_big_2 as select * from jdbc_big;
+select count(*) from jdbc_big_2;
+-- jdbc_big_2 를 이용해서 jdbc_big 더 크게 insert iptp 1000,0000
+insert into jdbc_big (col_2, col_3, col_4) select col_2, col_3, col_4 from jdbc_big_2;
+
+select * from jdbc_big where col_1 = 84563;
+select * from jdbc_big where col_2 = '노수주';
+
+-- Foreign Key (FK)
+-- customer, order, book 테이블에 orders 의 custid는 customer, bookid 는 book 의 key
+-- orders 에 customer 의 custid 를 FK 로 지정하는 설정
+
