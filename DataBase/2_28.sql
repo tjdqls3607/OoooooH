@@ -116,3 +116,23 @@ select * from customer c where not exists (select b.customer_id from blacklist b
 
 -- not in : index 이용 X, null 에대한 고려가 필요함
 -- not exists : index 이용, null 에대한 고려가 필요X
+
+-- 뷰
+-- 보고서 쿼리
+select o.orderid, o.custid, c.name, b.bookid, b.bookname, o.saleprice, o.orderdate 
+from customer c, orders o ,book b 
+where c.custid = o.custid 
+and b.bookid = o.bookid;
+
+-- 뷰를 이용한 보고서
+create view VOrders as
+ select o.orderid, o.custid, c.name, b.bookid, b.bookname, o.saleprice, o.orderdate 
+ from customer c, orders o ,book b 
+ where c.custid = o.custid 
+ and b.bookid = o.bookid;
+ 
+ select * from VOrders; -- 전체
+ select custid, name from vorders; -- 일부
+ -- 은행, 통신 회사 인사팀, 영업팀 (전체 데이터가 필요)... 콜센터 (제한적인 데이터만 필요)
+ -- 중요 데이터가 포함된 테이블 중 상담이 필요한 일부 컬럼만 콜센터가 사용하도록 한다
+ -- 위 경우, 테이블을 콜센터에 직접 노출 X
