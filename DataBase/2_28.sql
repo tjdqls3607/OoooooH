@@ -37,3 +37,18 @@ select * from mybook where price is not null;
 select bookid, price from mybook;
 
 select bookid, ifnull(price, 0) price from mybook;
+
+-- case when then else
+
+-- employee table 에서 department_id가 60, 90 인 사원의 salary 합
+-- 결과가 2개의 row
+select department_id, sum(salary)
+ from employees
+ where department_id in (60,90)
+ group by department_id;
+
+-- 1개의 row 에 2개의 컬럼으로 표현 
+-- select 60부서 sum, 90부서 sum
+ select sum(case when department_id = 60 then salary else 0 end)sum60, 
+		sum(case when department_id = 90 then salary else 0 end)sum90
+		from employees where department_id in (60,90);
