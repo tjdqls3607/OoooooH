@@ -1,0 +1,87 @@
+# 데이터 모델링 , ERD
+
+<aside>
+💡
+
+모델링 순서
+
+1. 해당 도메인의 Business Logic을 이해, 요구사항 분석
+2. 개체 Entity 도출 ( 네모 )
+3. 관계 Relationship 도출 ( 마름모 )
+4. 대응 차수 ( Cardinality ) 검토 ,  N : M 관계는 별도의 관계 Relationship 추가 (마름모)
+5. 상세 속성( Attributes ) 도출
+6. FK 검토 ( Identifying , Non-Identifying  )
+</aside>
+
+> **모델링 하는 이유? (ERD)**
+> 
+1. 모델링의 결과물 → DBMS에 적용되어 사용
+2. **프로젝트 구성원 간 소통의 도구** ( 고객사, 수행사, 개발자, DBA, 운영자 … )
+
+> 데이터 모델링
+> 
+1. 요구사항 수집 및 분석
+2. 설계
+    - 개념: 핵심 Entity 도출
+    - 논리: 상세 속성 정의, 정규화
+    - 물리: DB 개체 정의, 테이블 및 인덱스 설계
+3. 데이터베이스 구현
+
+<aside>
+💡
+
+ER 모델
+
+</aside>
+
+Entity - Relationship
+
+> 속성
+> 
+
+개체가 가진 성질
+
+- **단순 속성**: 더 이상 나눌 수 없는 하나의 속성 , 예: 이름, 나이.
+- **복합 속성**: 여러 구성 요소로 나눌 수 있는 속성 , 예: 주소 (도시, 거리, 우편번호 등)
+- **단일값 속성**: 한 개체에 대해 하나의 값만 가질 수 있는 속성 , 예: 주민등록번호
+- **다중값 속성**: 한 개체에 대해 여러 값을 가질 수 있는 속성 , 예: 학위, 전화번호
+- **저장 속성**: 다른 속성의 영향없이 단독으로 저장되는 속성, 예: 생년월일
+- **유도 속성**: 저장된 데이터를 바탕으로 계산되거나 유도되는 속성 , 예: 나이 (생년월일로부터 계산)
+
+> 관계
+> 
+
+개체와 개체 사이의 관계를 표현
+
+카디널리티 ( 대응 차수 ): 두 개의 테이블(엔티티) 간의 관계에서 가능한 연관 개수
+
+**강한 개체 타입(Strong Entity Type)**: 다른 개체에 의존하지 않고 독립적으로 존재할 수 있는 개체. (고객)
+
+**약한 개체 타입(Weak Entity Type)**: 자체적인 기본키가 없어 다른 강한 개체에 의존하여 식별되는 개체. (계좌) 
+
+> IE 표기법
+> 
+
+![image.png](attachment:c0dabb8e-bcb9-47d7-b41d-1a892f198fc0:image.png)
+
+> 정규화
+> 
+
+데이터의 중복을 최소화하고, 데이터 무결성을 유지하기 위해 테이블을 분해하는 과정
+
+![image.png](attachment:b39b505f-30ec-4143-8511-be9a4aef5b3c:image.png)
+
+![image.png](attachment:e3b1d99f-6ae0-453a-afc9-5e4663d7eb94:image.png)
+
+![image.png](attachment:50c2aaf9-4674-41e5-9deb-6255a99f03e6:image.png)
+
+![image.png](attachment:e199e477-fcfc-40c5-a36a-eee45f35438d:image.png)
+
+![image.png](attachment:32bd9cd4-67cd-4a85-ace6-03f57ecdd2cf:image.png)
+
+> OLTP vs OLAP
+> 
+
+On-Line Transactional Processing : 실시간 업무 처리
+
+On-Line Analytical Processing : 분석
