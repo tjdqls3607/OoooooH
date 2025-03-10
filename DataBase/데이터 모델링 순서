@@ -1,0 +1,7 @@
+모델링 순서
+1. 해당 도메인의 Business Logic 을 이해, 요구사항 분석
+2. 개체 Entity 도출 (네모)
+3. 관계 Relationship 도출 (마름모)
+4. 대응 차수 (cardinality) 검토, N:M 관계는 별도의 관계 Relationship 추가(마름모)
+5. 상세 속성(attributes) 도출
+6. FK 검토 (Identifying, Non-Identifying)
