@@ -43,7 +43,7 @@ public class TransactionTest {
             System.out.println(ret);
 
             // 모든 transaction 작업 완료
-               con.commit();  // <=생략되면 DB에 반영되지 않는다.
+            con.commit();  // <=생략되면 DB에 반영되지 않는다.
 
         } catch (SQLException e) {
             e.printStackTrace();
