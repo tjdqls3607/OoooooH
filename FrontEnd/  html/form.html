@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+</head>
+
+<body>
+    <form action="/backend" method="post">
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname" />
+        <!-- request.getParameter("abc") -->
+        <br />
+        <label for="cars">Choose a car:</label>
+        <select id="cars" name="cars">
+            <!-- request.getParameter("cars") -->
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+        </select>
+        <br />
+        <textarea name="message" rows="10" cols="30">
+            The cat was playing in the garden.
+        </textarea>
+
+        <hr>
+        <br>
+        <input type="radio" id="html" name="fav_language" value="HTML" /> <!-- request.getParameter("fav_language") -->
+        <label for="html">HTML</label><br />
+        <input type="radio" id="css" name="fav_language" value="CSS" />
+        <label for="css">CSS</label><br />
+        <input type="radio" id="javascript" name="fav_language" value="JavaScript" />
+        <label for="javascript">JavaScript</label>
+        <hr>
+        <br>
+        <!-- name 속성으로 group -->
+        <input type="radio" id="html" name="language" value="HTML" />
+        <label for="html">HTML</label><br />
+        <input type="radio" id="css" name="language" value="CSS" />
+        <label for="css">CSS</label><br />
+        <input type="radio" id="javascript" name="language" value="JavaScript" />
+        <label for="javascript">JavaScript</label>
+        <hr>
+        <br>
+        <!-- checkbox 에서 name 값을 따로 주는 경우 request.getParameter("vehicle1") request.getParameter("vehicle2")... 따로 처리
+        하나도 통일하는 경우 request.getParameterValues("vehicle") : String[] -->
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"> <!-- request.getParameter("vehicle") : String[] -->
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+        <label for="vehicle2"> I have a car</label><br>
+        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+        <label for="vehicle3"> I have a boat</label>
+        <hr>
+        <br>
+
+        <label for="favcolor">Select your favorite color:</label>
+        <input type="color" id="favcolor" name="favcolor">
+        <hr>
+        <br>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday">
+        <hr>
+        <br>
+        <!-- email 주소를 올바르게 입력하지 않으면 브라우저의 value -->
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email">
+        <hr>
+        <br>
+        <label for="myfile">Select a file:</label>
+        <input type="file" id="myfile" name="myfile">
+        <!-- input type="hidden" : 보이지 않지만, 백엔드에 전송O -->
+        <!-- type 이 지정되지 않으면 form 안의 button 은 submit 진행 -->
+        <button type="button" onclick="alert('Hello World!')">Click Me!</button>
+        <input type="button" value="Click Me!" onclick="alert ('Hello World!')" />
+        <input type="submit" value="Submit" />
+        <!-- 이중 submit (form, javascript ) 주의!-->
+        <input type="reset" value="Reset" />
+    </form>
+</body>
+
+</html>
