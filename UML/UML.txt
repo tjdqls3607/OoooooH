@@ -1,0 +1,31 @@
+1. UML
+   - Use Case Diagram
+   - Sequence Diagram
+   - 조별 / 개인별 활동
+2. DB Modeling
+   - 통신사 서비스 모델링
+     (고객, 상품, 계약, 청구)
+   - 조별 활동
+     (조 대 조 서비스 제시, 서비스 모델링하기)
+내일 발표는 UML, DB 모델링 중 택 1
+9:16
+UML 왜?
+  AS-IS  --> TO-BE
+  TO-BE 에 대한 이미지(형상) 를 text 가 아닌 그림으로 표현
+UML 얼마나 자세히? 깊게?
+   프로젝트 이해 당사자( 고객사, 개발사, 유지보수 업체 ) 간 협의
+
+   -------------------------------------------------------
+
+
+Use Case Diagram
+  Actor
+  사용자 외에 조직, 다른 시스템...
+  Primary Actor - Use Case Diagram  의 최초 행위자
+  Secondary Actor - Primary Actor 의 Action 에 반응하는 Actor
+  System 영역 밖에 존재
+
+  System
+   Website, Software, .......
+  Use Case
+   Actor 가 System 에 행하는 능동적인 행위
