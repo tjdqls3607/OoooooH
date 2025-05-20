@@ -29,3 +29,8 @@ Use Case Diagram
    Website, Software, .......
   Use Case
    Actor 가 System 에 행하는 능동적인 행위
+
+Include
+    또 다른 서브 Use Case 를 포함 (항상)
+Extend
+    또 다른 서브 Use Case 를 포함 (항상 X)
